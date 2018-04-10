@@ -34,6 +34,23 @@
         <el-container>
             <el-main>
                 <router-view>
+<<<<<<< HEAD
+=======
+                    <!-- <section :span="8" v-for="(o, index) in 2" :key="o" :offset="index > 0 ? 2 : 0">
+                        <article class="post-entry">
+                            <header class="post-header">
+                                <h3 class="post-title"><a href="#">标题</a></h3>
+                                <p>显示日期和作者</p>
+                            </header>
+                            <p class="post-summary">
+                                内容缩略
+                            </p>
+                            <footer class="post-footer">
+                                <a href="#" class="read-more">阅读全文</a>
+                            </footer>
+                        </article>
+                    </section> -->
+>>>>>>> 4dc72023f73fbfacd0afa9499e404adcbec8351a
                 </router-view>
             </el-main>
         </el-container>
