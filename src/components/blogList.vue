@@ -4,7 +4,7 @@
       <article class="post-entry">
           <header class="post-header">
               <h3 class="post-title"><a href="#">{{blog.title}}</a></h3>
-              <p>{{blog.author}}</p>
+              <p>@ {{blog.author}} {{blog.createTime | formatDate}}</p>
           </header>
           <p class="post-summary">{{blog.content}}</p>
           <footer class="post-footer">
@@ -16,16 +16,22 @@
 </template>
 
 <script>
+import config from '../../config/config'
+import moment from 'moment'
 export default {
-  name: 'HelloWorld',
+  name: 'blogList',
   data () {
     return {
       blogList:''
     }
   },
   created(){
-      let _this = this;
-      this.$http.get('http://localhost:8081/blogs/all').then((res)=>{_this.blogList =res.data;console.log(res)}).catch((err)=>{console.log("报错"+err)})
+      this.$http.get(config.url+'/blogs/all').then((res)=>{this.blogList =res.data}).catch((err)=>{console.log("报错"+err)})
+  },
+  filters:{
+      formatDate(item){
+          return moment(item).format('LLL');
+      }
   }
 }
 </script>

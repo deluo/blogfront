@@ -6,24 +6,6 @@ import BlogDetail from '@/components/blogDetail'
 
 Vue.use(Router)
 
-<<<<<<< HEAD
-=======
-// export default new Router({
-//   routes: [
-//     // {
-//     //   path: '/',
-//     //   name: 'HelloWorld',
-//     //   component: HelloWorld
-//     // },
-//     {
-//       path:'/blog',
-//       name:'totalPage',
-//       component:TotalPage
-//     }
-//   ]
-// })
-
->>>>>>> 4dc72023f73fbfacd0afa9499e404adcbec8351a
 const routes = [
     {
       path:'/blog',

@@ -1,18 +1,21 @@
 <template>
   <div>
-    <h3>详情内容在这</h3>
+    <h3>{{blog.title}}</h3>
+    <p>{{blog.content}}</p>
   </div>
 </template>
 
 <script>
+import config from '../../config/config'
 export default {
   name: 'blogDetail',
   created(){
+    this.$http.get(config.url+'/blogs/getOne/'+this.$route.params.id).then((res)=>{this.blog =res.data}).catch((err)=>{console.log("报错"+err)})
       console.log(this.$route.path+"/"+this.$route.params.id);
   },
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      blog:''
     }
   }
 }
