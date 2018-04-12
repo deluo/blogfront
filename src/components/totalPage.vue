@@ -21,8 +21,8 @@
                         <i class="el-icon-menu"></i>
                         <span slot="title">分类</span>
                     </template>
-                    <el-menu-item-group v-for="sbt in sortByType" :key="sbt.name">
-                        <el-menu-item index="2-2">{{sbt.name}}</el-menu-item>
+                    <el-menu-item-group v-for="sbt in sortByTags" :key="sbt._id">
+                        <el-menu-item index="2-2" @click="clickTag(sbt._id)">{{sbt._id}}<span>{{sbt.blogCount}}</span></el-menu-item>
                     </el-menu-item-group>
                 </el-submenu>
                 <el-menu-item index="3">
@@ -49,19 +49,26 @@
 </style>
 
 <script>
+import config from '../../config/config'
   export default {
     data() {
       return {
         isCollapse: true,
         sortByDate:[{"name":"七月2018"},{"name":"三月2018"},{"name":"九月2017"}],
-        sortByType:[{"name":"随笔"},{"name":"技术"},{"name":"心情"}],
+        sortByTags:'',
         currentDate: new Date()
       };
+    },
+    created(){
+        console.log(config.url)
+        this.$http.get(config.url+'/blogs/groupByTags').then((res)=>{this.sortByTags = res.data});
     },
     methods: {
       handleSlider(){
           this.isCollapse = !this.isCollapse;
-          //console.log(this.isCollapse)
+      },
+      clickTag(tag){
+          this.$router.push({name:'BlogListByTag',params:{tag:tag}});
       }
     }
   }

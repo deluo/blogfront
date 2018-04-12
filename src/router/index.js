@@ -17,6 +17,10 @@ const routes = [
           name: 'BlogList',
           component: BlogList
         },{
+          path:'tag/:tag',
+          name:'BlogListByTag',
+          component:BlogList
+        },{
           path:'blogdetail',
           name:'BlogDetail',
           component:BlogDetail

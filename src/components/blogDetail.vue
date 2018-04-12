@@ -11,7 +11,7 @@ export default {
   name: 'blogDetail',
   created(){
     this.$http.get(config.url+'/blogs/getOne/'+this.$route.params.id).then((res)=>{this.blog =res.data}).catch((err)=>{console.log("报错"+err)})
-      console.log(this.$route.path+"/"+this.$route.params.id);
+    // console.log(this.$route.path+"/"+this.$route.params.id);
   },
   data () {
     return {

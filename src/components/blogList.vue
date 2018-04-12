@@ -32,6 +32,13 @@ export default {
       formatDate(item){
           return moment(item).format('LLL');
       }
+  },
+  watch:{
+      '$route'(to,from){
+          console.log("路径改变了"+this.$route.params.tag)
+          console.log(config.url);
+          this.$http.get(config.url+'/blogs/getListByTag',{params:{tags:this.$route.params.tag}}).then((res)=>{console.log(res.data);this.blogList = res.data})
+      }
   }
 }
 </script>
