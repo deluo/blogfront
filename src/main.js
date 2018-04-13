@@ -11,6 +11,7 @@ import moment from 'moment';
 
 Vue.prototype.$http = axios;
 Object.defineProperty(Vue.prototype, '$moment', { value: moment });
+moment.locale("zh-cn")
 
 Vue.config.productionTip = false
 

@@ -12,8 +12,8 @@
                         <i class="el-icon-document"></i>
                         <span slot="title">归档</span>
                     </template>
-                    <el-menu-item-group v-for="sbd in sortByDate" :key="sbd.name">
-                        <el-menu-item index="1-2">{{sbd.name}}</el-menu-item>
+                    <el-menu-item-group v-for="sbd in sortByDate" :key="sbd._id | dateFormat">
+                        <el-menu-item index="1-2" @click="clickDate(sbd._id)">{{sbd._id | dateFormat}}<span class="num-box">{{sbd.blogCount}}</span></el-menu-item>
                     </el-menu-item-group>
                 </el-submenu>
                 <el-submenu index="2">
@@ -22,7 +22,7 @@
                         <span slot="title">分类</span>
                     </template>
                     <el-menu-item-group v-for="sbt in sortByTags" :key="sbt._id">
-                        <el-menu-item index="2-2" @click="clickTag(sbt._id)">{{sbt._id}}<span>{{sbt.blogCount}}</span></el-menu-item>
+                        <el-menu-item index="2-2" @click="clickTag(sbt._id)">{{sbt._id}}<span class="num-box">{{sbt.blogCount}}</span></el-menu-item>
                     </el-menu-item-group>
                 </el-submenu>
                 <el-menu-item index="3">
@@ -46,22 +46,41 @@
     width: 200px;
     min-height: 400px;
   }
+  .num-box{
+    position: absolute;
+    right: 1pc;
+    top: 9pt;
+    display: inline-block;
+    min-width: 24px;
+    height: 24px;
+    line-height: 24px;
+    padding: 0 3px;
+    font-size: 10px;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    background: #607d8b;
+    color: #fff;
+    text-shadow: 1px 1px 3px #444;
+  }
 </style>
 
 <script>
 import config from '../../config/config'
+import moment from 'moment'
   export default {
     data() {
       return {
         isCollapse: true,
-        sortByDate:[{"name":"七月2018"},{"name":"三月2018"},{"name":"九月2017"}],
+        sortByDate:'',
         sortByTags:'',
         currentDate: new Date()
       };
     },
     created(){
-        console.log(config.url)
+        //console.log(config.url)
         this.$http.get(config.url+'/blogs/groupByTags').then((res)=>{this.sortByTags = res.data});
+        this.$http.get(config.url+'/blogs/groupByDate').then((res)=>{this.sortByDate = res.data});
     },
     methods: {
       handleSlider(){
@@ -69,7 +88,15 @@ import config from '../../config/config'
       },
       clickTag(tag){
           this.$router.push({name:'BlogListByTag',params:{tag:tag}});
+      },
+      clickDate(date){
+          this.$router.push({name:'BlogListByDate',params:{date:date.year+'-'+date.month}});
       }
+    },
+    filters:{
+        dateFormat(item){
+            return moment(item.year+'-'+item.month).format('MMM YYYY');
+        }
     }
   }
 </script>

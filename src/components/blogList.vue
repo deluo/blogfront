@@ -35,9 +35,12 @@ export default {
   },
   watch:{
       '$route'(to,from){
-          console.log("路径改变了"+this.$route.params.tag)
-          console.log(config.url);
-          this.$http.get(config.url+'/blogs/getListByTag',{params:{tags:this.$route.params.tag}}).then((res)=>{console.log(res.data);this.blogList = res.data})
+          if(this.$route.params.date){
+              this.$http.get(config.url+'/blogs/getListByDate/'+this.$route.params.date).then((res)=>{this.blogList = res.data})
+          }
+          else if(this.$route.params.tag){
+              this.$http.get(config.url+'/blogs/getListByTag',{params:{tags:this.$route.params.tag}}).then((res)=>{this.blogList = res.data})
+          }
       }
   }
 }

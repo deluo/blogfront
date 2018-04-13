@@ -21,6 +21,11 @@ const routes = [
           name:'BlogListByTag',
           component:BlogList
         },{
+          path:'date/:date',
+          name:'BlogListByDate',
+          component:BlogList
+        }
+        ,{
           path:'blogdetail',
           name:'BlogDetail',
           component:BlogDetail
