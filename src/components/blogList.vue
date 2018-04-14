@@ -3,10 +3,10 @@
     <section :span="8" v-for="blog in blogList" :key="blog._id">
       <article class="post-entry">
           <header class="post-header">
-              <h3 class="post-title"><a href="#">{{blog.title}}</a></h3>
-              <p>@ {{blog.author}} {{blog.createTime | formatDate}}</p>
+              <h3 class="post-title"><router-link :to="{name:'BlogDetail',params:{id:blog._id}}" v-html="blog.title"></router-link></h3>
+              <span class="post-meta">@ {{blog.author}} {{blog.createTime | formatDate}}</span>
           </header>
-          <p class="post-summary">{{blog.content}}</p>
+          <p class="post-summary" v-html="blog.content"></p>
           <footer class="post-footer">
               <router-link :to="{name:'BlogDetail',params:{id:blog._id}}"  class="read-more">阅读全文</router-link>
           </footer>
@@ -30,13 +30,13 @@ export default {
   },
   filters:{
       formatDate(item){
-          return moment(item).format('LLL');
+          return moment(item).format("MMMDD,YYYY");
       }
   },
   watch:{
       '$route'(to,from){
           if(this.$route.params.date){
-              this.$http.get(config.url+'/blogs/getListByDate/'+this.$route.params.date).then((res)=>{this.blogList = res.data})
+              this.$http.get(config.url+'/blogs/getListByDate',{params:{createTime:this.$route.params.date}}).then((res)=>{this.blogList = res.data})
           }
           else if(this.$route.params.tag){
               this.$http.get(config.url+'/blogs/getListByTag',{params:{tags:this.$route.params.tag}}).then((res)=>{this.blogList = res.data})
@@ -60,18 +60,29 @@ export default {
       text-align:left
   }
   .post-title{
-      margin-top:1.5rem;margin-bottom:0.5rem;font-size:1.3rem;line-height:1.3;font-weight:700;
-      font-size:2rem;line-height:1.5;
+      margin-top:1.5rem;margin-bottom:0.5rem;font-size:1.5rem;line-height:1.3;font-weight:700;
+      line-height:1.5;
   }
-  .post-title a{opacity:1}
+  .post-title a{opacity:0.9}
   .post-summary{
       margin-top:1rem;margin-bottom:1rem;font-size:0.9rem;text-align:justify;opacity:0.7
   }
   .post-footer{
       text-align: left;
   }
+  .post-meta{
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+    font-size: .8rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
   .read-more{
       font-size:.8rem;letter-spacing:1px;text-transform:uppercase;
   }
-  a:hover{color:#242424;opacity:1;outline:none}
+  a {
+      text-decoration:none;
+      color: #242424;
+  }
+  a:hover{color:#5fbf5e;opacity:1;outline:none}
 </style>

@@ -1,31 +1,33 @@
 <template>
-    <el-container style="height: 500px; solid #eee">
+    <el-container style="height: 100%; solid #eee">
         <el-aside>
-            <el-menu default-active="1-4-1" class="el-menu-vertical-demo" :collapse="isCollapse">
-                <el-menu-item index="4" v-model="isCollapse" @click="handleSlider">
+            <el-menu default-active="" class="el-menu-vertical-demo" :collapse="isCollapse" 
+            text-color="#fff" active-text-color="#ffd04b" background-color="#545c64" unique-opened=true
+            >
+                <el-menu-item index="1" v-model="isCollapse" @click="handleSlider">
                     <i class="el-icon-more"></i>
                     <span slot="title" v-if="isCollapse">展开</span>
                     <span slot="title" v-else>收起</span>
                 </el-menu-item>
-                <el-submenu index="1">
+                <el-submenu index="2">
                     <template slot="title">
                         <i class="el-icon-document"></i>
                         <span slot="title">归档</span>
                     </template>
-                    <el-menu-item-group v-for="sbd in sortByDate" :key="sbd._id | dateFormat">
-                        <el-menu-item index="1-2" @click="clickDate(sbd._id)">{{sbd._id | dateFormat}}<span class="num-box">{{sbd.blogCount}}</span></el-menu-item>
+                    <el-menu-item-group v-for="(sbd,index) in sortByDate" :key="sbd._id | dateFormat">
+                        <el-menu-item :index="'2'+'-'+index" @click="clickDate(sbd._id)" >{{sbd._id | dateFormat}}<span class="num-box">{{sbd.blogCount}}</span></el-menu-item>
                     </el-menu-item-group>
                 </el-submenu>
-                <el-submenu index="2">
+                <el-submenu index="3">
                     <template slot="title">
                         <i class="el-icon-menu"></i>
                         <span slot="title">分类</span>
                     </template>
-                    <el-menu-item-group v-for="sbt in sortByTags" :key="sbt._id">
-                        <el-menu-item index="2-2" @click="clickTag(sbt._id)">{{sbt._id}}<span class="num-box">{{sbt.blogCount}}</span></el-menu-item>
+                    <el-menu-item-group v-for="(sbt,index) in sortByTags" :key="sbt._id">
+                        <el-menu-item :index="'3'+'-'+index" @click="clickTag(sbt._id)">{{sbt._id}}<span class="num-box">{{sbt.blogCount}}</span></el-menu-item>
                     </el-menu-item-group>
                 </el-submenu>
-                <el-menu-item index="3">
+                <el-menu-item index="4">
                     <i class="el-icon-share"></i>
                     <span slot="title">分享</span>
                 </el-menu-item>
@@ -62,6 +64,12 @@
     background: #607d8b;
     color: #fff;
     text-shadow: 1px 1px 3px #444;
+  }
+  .el-aside{
+    min-width: 22px !important;
+    width: 220px !important;
+    border-radius: 4px !important;
+    background-color: #fff !important;
   }
 </style>
 
