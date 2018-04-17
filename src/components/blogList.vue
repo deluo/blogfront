@@ -3,7 +3,7 @@
     <section :span="8" v-for="blog in blogList" :key="blog._id">
       <article class="post-entry">
           <header class="post-header">
-              <h3 class="post-title"><router-link :to="{name:'BlogDetail',params:{id:blog._id}}" v-html="blog.title"></router-link></h3>
+              <router-link :to="{name:'BlogDetail',params:{id:blog._id}}" class="post-title" v-html="blog.title"></router-link>
               <span class="post-meta">@ {{blog.author}} {{blog.createTime | formatDate}}</span>
           </header>
           <p class="post-summary" v-html="blog.content"></p>

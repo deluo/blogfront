@@ -1,5 +1,5 @@
 <template>
-    <el-container style="height: 100%; solid #eee">
+    <el-container style="height:100%; solid #eee">
         <el-aside>
             <el-menu default-active="" class="el-menu-vertical-demo" :collapse="isCollapse" 
             text-color="#fff" active-text-color="#ffd04b" background-color="#545c64" unique-opened=true

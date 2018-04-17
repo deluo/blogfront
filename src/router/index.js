@@ -1,16 +1,17 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import BlogList from '@/components/blogList'
-import TotalPage from '@/components/totalPage'
+import BlogHome from '@/components/blogHome'
 import BlogDetail from '@/components/blogDetail'
+import Login from '@/components/login'
 
 Vue.use(Router)
 
 const routes = [
     {
       path:'/blog',
-      name:'totalPage',
-      component:TotalPage,
+      name:'blogHome',
+      component:BlogHome,
       children:[
         {
           path: '/',
@@ -26,11 +27,16 @@ const routes = [
           component:BlogList
         }
         ,{
-          path:'blogdetail',
+          path:'blogdetail/:id',
           name:'BlogDetail',
           component:BlogDetail
         }
       ]
+    },
+    {
+      path:'/admin',
+      name:'blogAdmin',
+      component:Login
     }
 ]
 
